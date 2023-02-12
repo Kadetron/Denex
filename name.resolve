@@ -1,5 +1,0 @@
-#!/bin/bash
-echo " enter the name: "
-read name
-url="https://myanimelist.net/search/prefix.json?type=all&keyword=$name"
-curl $url | jq
