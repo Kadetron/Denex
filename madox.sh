@@ -4,7 +4,7 @@ declare -i n
 echo -n "Enter the name: "
 read name
 name=$(echo $name | sed "s/ /%20/g")
-echo -n "anime or manga[a/m]: "
+echo -n "anime or manga[A/m]: "
 read choice
 declare c
 if [ "$choice" == "A" ]
