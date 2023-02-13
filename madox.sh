@@ -18,7 +18,7 @@ else
         exit 5
 fi
 res=$(curl -s "https://myanimelist.net/search/prefix.json?type=$c&keyword=$name")
-echo $res | jq '.categories[] | .items[] | .name, .payload.media_type' | sed -E -e "s/^[{|}]//g" -e "s/[\"]//g" -e "s/[\,]$//g" | awk '{getline b;printf("%s (%s)\n",$0,b)}' | awk '{print "[" NR-0 "] " $0}'
+echo $res | jq -r '.categories[] | .items[] | .name+" ("+.payload.media_type+")"' | awk '{print "[" NR-0 "] " $0}'
 idarray=( $(echo $res | jq '.categories[] | .items[] | .id') )
 echo -n "Enter choice:"
 read n
