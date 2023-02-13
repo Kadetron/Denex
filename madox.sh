@@ -22,5 +22,4 @@ echo $res | jq -r '.categories[] | .items[] | .name+" ("+.payload.media_type+")"
 idarray=( $(echo $res | jq '.categories[] | .items[] | .id') )
 echo -n "Enter choice:"
 read n
-echo ${idarray[@]}
 echo $res | jq --argjson a "${idarray[ (($n-1)) ]}" '.categories[] | .items[] | select(.id == $a)'
