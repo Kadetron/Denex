@@ -7,6 +7,7 @@ name=$(echo $name | sed "s/ /%20/g")
 echo -en "\e[96mAnime or manga[A/m]:\e[0m "
 read choice ; echo
 declare c
+user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0"
 if [ "$choice" == "A" ]
 then
         c="anime"
@@ -17,9 +18,9 @@ else
         echo wrong input
         exit 5
 fi
-res=$(curl -s "https://myanimelist.net/search/prefix.json?type=$c&keyword=$name")
+res=$(curl -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -A "$user_agent" -s "https://myanimelist.net/search/prefix.json?type=$c&keyword=$name")
 echo -e "\e[1;93m$(echo $res | jq -r '.categories[] | .items[] | .name+" ("+.payload.media_type+")"' | awk '{print "[" NR-0 "] " $0}')\e[0m"
 idarray=( $(echo $res | jq --arg a "$c" '.categories[] | select(.type == $a) | .items[] | .id') )
 echo -en "\n\e[96mEnter choice:\e[0m"
 read n
-echo -e "\n\e[33m$(echo $res | jq --argjson a "${idarray[ (($n-1)) ]}" '.categories[] | .items[] | select(.id == $a)' | sed -E -e "s<\{|\}|^ {2,4}|\"id\":.*|\"type\":.*|\"image_url\":.*|\"thumbnail_url\":.*|\"payload\":.*|\"es_score\":.*|,$|\"<<g" -e "/^$/d" -e "s/^name:/Name=>  \t/" -e "s/^url:/Url=>   \t/" -e "s/^media_type:/Media type=>\t/" -e "s/^start_year:/Start year=>\t/" -e "s/^aired:/Aired=>  \t/" -e "s/^published:/Published=>\t/" -e "s/^score:/Score=>  \t/" -e "s/^status:/Status=>\t/")\e[0m"
+echo -e "\n\e[1;31m$(echo $res | jq --argjson a "${idarray[ (($n-1)) ]}" '.categories[] | .items[] | select(.id == $a)' | sed -E -e "s<\{|\}|^ {2,4}|\"id\":.*|\"type\":.*|\"image_url\":.*|\"thumbnail_url\":.*|\"payload\":.*|\"es_score\":.*|,$|\"<<g" -e "/^$/d" -e "s/^name:/Name=>  \t/" -e "s/^url:/Url=>   \t/" -e "s/^media_type:/Media type=>\t/" -e "s/^start_year:/Start year=>\t/" -e "s/^aired:/Aired=>  \t/" -e "s/^published:/Published=>\t/" -e "s/^score:/Score=>  \t/" -e "s/^status:/Status=>\t/")\e[0m"
