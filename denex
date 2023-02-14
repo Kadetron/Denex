@@ -23,7 +23,7 @@ echo -e "\e[1;93m$(echo $res | jq -r '.categories[] | .items[] | .name+" ("+.pay
 idarray=( $(echo $res | jq --arg a "$c" '.categories[] | select(.type == $a) | .items[] | .id') )
 echo -en "\n\e[96mEnter choice:\e[0m"
 read n
-if (("$n">="${#idarray[@]}"||"$n"<1))
+if (("$n">"${#idarray[@]}"||"$n"<"1"))
 then
         echo -e "\e[91mWrong input\e[0m"
         exit 5
