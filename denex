@@ -1,7 +1,7 @@
 #!/bin/bash
 declare -u choice
 declare -i n
-echo -en "\e[96mEnter the name:\e[0m "
+echo -en "\n\e[96mEnter the name:\e[0m "
 read name
 name=$(echo $name | sed "s/ /%20/g")
 echo -en "\e[96mAnime or manga[A/m]:\e[0m "
@@ -28,4 +28,4 @@ then
         echo -e "\e[91mWrong input\e[0m"
         exit 5
 fi
-echo -e "\e[1;31m$(echo $res | jq --argjson a "${idarray[ (($n-1)) ]}" '.categories[] | .items[] | select(.id == $a)' | sed -E -e "s<\{|\}|^ {2,4}|\"id\":.*|\"type\":.*|\"image_url\":.*|\"thumbnail_url\":.*|\"payload\":.*|\"es_score\":.*|,$|\"<<g" -e "/^$/d" -e "s/^name:/[Name]->  \t/" -e "s/^url:/[Url]->   \t/" -e "s/^media_type:/[Media type]->\t/" -e "s/^start_year:/[Start year]->\t/" -e "s/^aired:/[Aired]->  \t/" -e "s/^published:/[Published]->\t/" -e "s/^score:/[Score]->  \t/" -e "s/^status:/[Status]->\t/")\e[0m"
+echo -e "\n\e[1;97m$(echo $res | jq --argjson a "${idarray[ (($n-1)) ]}" '.categories[] | .items[] | select(.id == $a)' | sed -E -e "s<\{|\}|^ {2,4}|\"id\":.*|\"type\":.*|\"image_url\":.*|\"thumbnail_url\":.*|\"payload\":.*|\"es_score\":.*|,$|\"<<g" -e "/^$/d" -e "s/^name:/[Name]->  \t/" -e "s/^url:/[Url]->   \t/" -e "s/^media_type:/[Media type]->\t/" -e "s/^start_year:/[Start year]->\t/" -e "s/^aired:/[Aired]->  \t/" -e "s/^published:/[Published]->\t/" -e "s/^score:/[Score]->  \t/" -e "s/^status:/[Status]->\t/")\e[0m\n"
