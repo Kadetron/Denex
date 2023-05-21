@@ -30,10 +30,10 @@ echo -en "\e[96mAnime or manga[A/m]:\e[0m "
 read choice
 declare c
 user_agent="Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0"
-if [ "$choice" == "A" ]
+if [ "$choice" == "A" ] || [ "$choice" == "ANIME" ]
 then
         c="anime"
-elif [ "$choice" == "M" ]
+elif [ "$choice" == "M" ] || [ "$choice" == "MANGA" ]
 then
         c="manga"
 else
