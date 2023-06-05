@@ -1,5 +1,5 @@
 # Denex
-A script that scrapes information about an anime or manga from myanimelist.net
+> **A script that scrapes information about an anime or manga from myanimelist.net**
 
 ## Usage
 
